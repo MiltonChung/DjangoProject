@@ -1,24 +1,10 @@
 from django.shortcuts import render
-
-posts = [
-    {
-        'author': 'Milton',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'August 22, 2020'
-    },
-    {
-        'author': 'Emily',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'August 23, 2020'
-    }
-]
-
+from .models import Post
 
 def home(request):
     context = {
-        'posts':posts
+        # Sort the posts by date posted in descending order(newest first)
+        'posts':Post.objects.all().order_by('-date_posted')
     }
     return render(request, 'blog/home.html', context)
 
