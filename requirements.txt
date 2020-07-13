@@ -1,7 +1,9 @@
 certifi==2018.10.15
 chardet==3.0.4
 Django==2.1
-django-crispy-forms==1.7.2
+django-cleanup==5.0.0
+django-crispy-forms==1.9.2
+django-storages==1.9.1
 idna==2.7
 Pillow==5.2.0
 pytz==2018.5
