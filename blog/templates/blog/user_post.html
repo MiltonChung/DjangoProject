@@ -1,8 +1,28 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
+    <div class="content-section">
+        
+            <div class="media">
+                <img class="rounded-circle account-img" src="{{ posts.0.author.profile.image.url }}">
+                <div class="media-body">
+                    <h2 class="account-heading">{{ posts.0.author.first_name }} {{ posts.0.author.last_name }}</h2>
+                    <p class="text-secondary"> {{ posts.0.author.username }}</p>
+                </div>
+            </div>
+
+            <legend class="border-bottom mb-4">Profile Info</legend>
+
+            <article class="profile-bio">Bio:</article>
+            {% if posts.0.author.profile.bio != '' %}
+                {{ posts.0.author.profile.bio }}
+            {% else %}
+                <p class="text-muted">This user doesn't have a bio :(</p>
+            {% endif %}
+    </div>
+
     {% if user.is_authenticated %}
-    <h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+    <h3 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h3>
     {% endif %}
 
     {% for post in posts %}
@@ -10,7 +30,7 @@
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
             <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
                 <small class="text-muted">{{ post.date_posted|date:"g:iA" }}</small>
                 <small class="text-muted">&nbsp;<b>{{ post.date_posted|date:"N d, Y" }}</b></small>
             </div>

@@ -2,22 +2,60 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <h2>Welcome, {{ user.username }}!</h2>
+    <div>
+        <a class="btn btn-success btn-m mb-3" href="{% url 'post-create' %}" type="button">New Post</a>
+    </div>
     {% endif %}
+
     {% for post in posts %}
-        <article class="media content-section">
+        <article class="media content-section" style="border-radius: 1.9%;">
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
             <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                <a class="mr-2" href="{% url 'user-posts' post.author.username %}">
+                    {{ post.author.first_name }}
+                    {{ post.author.last_name }}
+                </a>
                 <small class="text-muted">{{ post.date_posted|date:"g:iA" }}</small>
                 <small class="text-muted">&nbsp;<b>{{ post.date_posted|date:"N d, Y" }}</b></small>
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+            <!-- {% if post.replies == None %}
+                
+            {% else %}
+                <p class="article-content">nooooo</p>
+            {% endif %} -->
             <p class="article-content">{{ post.content }}</p>
+
+            <!-- <hr> -->
+           
+            <!-- {{ post.replies }} -->
+            <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View</a>
+            
+
+            <div class="float-right">
+                {% if post.author.username == user.username %}  
+                
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1 ml-1" href="{% url 'post-update' post.id %}">Edit</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1 ml-1" href="{% url 'post-delete' post.id %}">Delete</a>
+                    
+                {% endif %}
             </div>
+
+            <hr>
+            
+            <!-- {% if post.replies != 'None' %}
+                {% for rep in post.replies.all %}
+                    <div class="float-left ml-5">
+                        {{ rep.content }}<br>
+                        <p class="text-muted">{{ rep.date_posted }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %} -->
         </article>
     {% endfor %}
+
+
 
     {% if is_paginated %}
         {% if page_obj.has_previous %}

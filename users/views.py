@@ -1,22 +1,30 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, UserRegisterBio
 from django.contrib.auth.decorators import login_required
 
 
 # Types of messages: messages.debug,messages.info, messages.success, messages.warning, messages.error
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+        p_form = UserRegisterBio(request.POST)
+        u_form = UserRegisterForm(request.POST)
+        print(p_form)
+        if u_form.is_valid(): #and p_form.is_valid():
+            u_form.save()
+            p_form.save()
             messages.success(request, f'Your account has been created!')
             return redirect('login')
     else:
-        form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+        p_form = UserRegisterBio()
+        u_form = UserRegisterForm()
+
+    context ={
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request, 'users/register.html', context)
 
 @login_required
 def profile(request):

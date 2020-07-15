@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
 
+
 def home(request):
     context = {
         # Sort the posts by date posted in descending order(newest first)
