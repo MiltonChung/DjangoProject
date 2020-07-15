@@ -10,7 +10,6 @@ def register(request):
     if request.method == 'POST':
         #p_form = UserRegisterBio(request.POST)
         u_form = UserRegisterForm(request.POST)
-        print(p_form)
         if u_form.is_valid(): #and p_form.is_valid():
             u_form.save()
             #p_form.save(commit=False)
