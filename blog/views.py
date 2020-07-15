@@ -15,7 +15,7 @@ def home(request):
     return render(request, 'blog/home.html', context)
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/home.html' #<app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -23,7 +23,7 @@ class PostListView(ListView):
     paginate_by = 5
 
 
-class UserListView(ListView):
+class UserListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/user_post.html' #<app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -34,7 +34,7 @@ class UserListView(ListView):
         return Post.objects.filter(author=user).order_by('-date_posted')
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
 
 

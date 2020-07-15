@@ -37,12 +37,12 @@
   /* ======================== My own addition to this CSS style: =================================*/
   
    ::selection {
-      background: #ffb7b7;
+      background: #f0cbf3;
       /* WebKit/Blink Browsers */
   }
   
    ::-moz-selection {
-      background: #ffb7b7;
+      background: #fad4d4;
       /* Gecko Browsers */
   }
   /* width */
@@ -58,8 +58,8 @@
   /* Handle */
   
    ::-webkit-scrollbar-thumb {
-      background: rgb(76, 76, 236);
-      border-radius: 10px;
+      background: rgb(0, 86, 167);
+      border-radius: 1%;
   }
   
   .navbar-sitemap {
