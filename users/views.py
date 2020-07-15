@@ -8,21 +8,21 @@ from django.contrib.auth.decorators import login_required
 # Types of messages: messages.debug,messages.info, messages.success, messages.warning, messages.error
 def register(request):
     if request.method == 'POST':
-        p_form = UserRegisterBio(request.POST)
+        #p_form = UserRegisterBio(request.POST)
         u_form = UserRegisterForm(request.POST)
         print(p_form)
         if u_form.is_valid(): #and p_form.is_valid():
             u_form.save()
-            p_form.save(commit=False)
-            messages.success(request, f'Your account has been created!')
+            #p_form.save(commit=False)
+            messages.success(request, f'Your account has been created! You can update your info in your profile.')
             return redirect('login')
     else:
-        p_form = UserRegisterBio()
+        #p_form = UserRegisterBio()
         u_form = UserRegisterForm()
 
     context ={
         'u_form': u_form,
-        'p_form': p_form
+        #'p_form': p_form
     }
     return render(request, 'users/register.html', context)
 
