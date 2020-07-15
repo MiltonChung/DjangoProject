@@ -13,7 +13,7 @@ def register(request):
         print(p_form)
         if u_form.is_valid(): #and p_form.is_valid():
             u_form.save()
-            p_form.save()
+            p_form.save(commite=False)
             messages.success(request, f'Your account has been created!')
             return redirect('login')
     else:
